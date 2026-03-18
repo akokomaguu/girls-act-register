@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Girls Act Register</title>
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #5b21b6;
+      --primary-2: #7c3aed;
+      --danger: #b91c1c;
+      --border: #e5e7eb;
+      --ok: #166534;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+    }
+    .hero { margin-bottom: 20px; }
+    h1, h2 { margin-top: 0; }
+    p { margin: 0 0 12px; }
+    .notice {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    label {
+      display: block;
+      font-size: 0.93rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 0.96rem;
+    }
+    textarea { min-height: 96px; resize: vertical; }
+    .full { grid-column: 1 / -1; }
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-secondary { background: #ede9fe; color: var(--primary); }
+    .btn-danger { background: #fee2e2; color: var(--danger); }
+    .status {
+      margin-top: 10px;
+      font-weight: 700;
+      color: var(--ok);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.92rem;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      padding: 10px;
+      vertical-align: top;
+    }
+    th { background: #f3f4f6; }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .small { color: var(--muted); font-size: 0.92rem; }
+    @media (max-width: 800px) {
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .container { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>AHF Girls Act Register</h1>
+      <p>This starter register is designed for programme intake, attendance, and follow-up tracking for Girls Act activities.</p>
+      <div class="notice">
+        <strong>Important:</strong> this demo stores submissions only in the browser on the current device using local storage. That is fine for prototyping, training, and non-sensitive testing, but it is <strong>not</strong> the right final setup for sensitive or health-related participant data. Use GitHub Pages for the interface only, and connect it to a secure backend later.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Participant Register Form</h2>
+      <form id="registerForm">
+        <div class="grid-3">
+          <div>
+            <label for="entryDate">Entry Date</label>
+            <input id="entryDate" name="entryDate" type="date" required />
+          </div>
+          <div>
+            <label for="participantId">Participant ID</label>
+            <input id="participantId" name="participantId" type="text" placeholder="GA-001" required />
+          </div>
+          <div>
+            <label for="programmeCycle">Programme Cycle / Cohort</label>
+            <input id="programmeCycle" name="programmeCycle" type="text" placeholder="2026 Cohort A" />
+          </div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="firstName">First Name</label>
+            <input id="firstName" name="firstName" type="text" required />
+          </div>
+          <div>
+            <label for="lastName">Last Name</label>
+            <input id="lastName" name="lastName" type="text" required />
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:12px;">
+          <div>
+            <label for="ageGroup">Age Group</label>
+            <select id="ageGroup" name="ageGroup" required>
+              <option value="">Select</option>
+              <option>10-14</option>
+              <option>15-19</option>
+              <option>20-24</option>
+              <option>25+</option>
+            </select>
+          </div>
+          <div>
+            <label for="county">County</label>
+            <input id="county" name="county" type="text" placeholder="Nairobi" required />
+          </div>
+          <div>
+            <label for="subCounty">Sub-County / Area</label>
+            <input id="subCounty" name="subCounty" type="text" />
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top:12px;">
+          <div>
+            <label for="schoolCommunity">School / Community Group</label>
+            <input id="schoolCommunity" name="schoolCommunity" type="text" />
+          </div>
+          <div>
+            <label for="sessionType">Session / Activity Type</label>
+            <select id="sessionType" name="sessionType">
+              <option value="">Select</option>
+              <option>Registration</option>
+              <option>Attendance</option>
+              <option>Mentorship</option>
+              <option>SRHR Session</option>
+              <option>Leadership Training</option>
+              <option>Referral Follow-Up</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:12px;">
+          <div>
+            <label for="participantPhone">Participant Phone</label>
+            <input id="participantPhone" name="participantPhone" type="tel" placeholder="Optional" />
+          </div>
+          <div>
+            <label for="guardianPhone">Guardian Phone</label>
+            <input id="guardianPhone" name="guardianPhone" type="tel" placeholder="If applicable" />
+          </div>
+          <div>
+            <label for="facilitator">Facilitator</label>
+            <input id="facilitator" name="facilitator" type="text" />
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:12px;">
+          <div>
+            <label for="consentStatus">Consent / Assent Recorded</label>
+            <select id="consentStatus" name="consentStatus" required>
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Pending</option>
+            </select>
+          </div>
+          <div>
+            <label for="referralNeeded">Referral Needed</label>
+            <select id="referralNeeded" name="referralNeeded">
+              <option value="">Select</option>
+              <option>No</option>
+              <option>Health</option>
+              <option>Psychosocial</option>
+              <option>Legal</option>
+              <option>Education</option>
+            </select>
+          </div>
+          <div>
+            <label for="attendanceStatus">Attendance Status</label>
+            <select id="attendanceStatus" name="attendanceStatus">
+              <option value="">Select</option>
+              <option>Present</option>
+              <option>Absent</option>
+              <option>Follow-up needed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top:12px;">
+          <div class="full">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" placeholder="Keep notes minimal. Avoid storing highly sensitive details in a public or shared system."></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Save Entry</button>
+          <button type="button" class="btn-secondary" id="exportCsvBtn">Export CSV</button>
+          <button type="button" class="btn-secondary" id="exportJsonBtn">Export JSON</button>
+          <button type="reset" class="btn-secondary">Clear Form</button>
+          <button type="button" class="btn-danger" id="clearAllBtn">Delete All Local Entries</button>
+        </div>
+        <div id="status" class="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="toolbar">
+        <div>
+          <h2 style="margin-bottom:4px;">Saved Entries</h2>
+          <div class="small">These rows are stored only on this browser for demo purposes.</div>
+        </div>
+        <div class="small" id="entryCount">0 entries</div>
+      </div>
+      <div style="overflow:auto;">
+        <table id="entriesTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Participant ID</th>
+              <th>Name</th>
+              <th>Age Group</th>
+              <th>County</th>
+              <th>Activity</th>
+              <th>Consent</th>
+              <th>Referral</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'girlsActRegisterEntries';
+    const form = document.getElementById('registerForm');
+    const tbody = document.querySelector('#entriesTable tbody');
+    const statusEl = document.getElementById('status');
+    const entryCountEl = document.getElementById('entryCount');
+    const entryDate = document.getElementById('entryDate');
+    entryDate.value = new Date().toISOString().split('T')[0];
+
+    function getEntries() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function saveEntries(entries) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+      renderTable();
+    }
+
+    function showStatus(message) {
+      statusEl.textContent = message;
+      setTimeout(() => {
+        if (statusEl.textContent === message) statusEl.textContent = '';
+      }, 3000);
+    }
+
+    function downloadFile(filename, content, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function toCSV(entries) {
+      if (!entries.length) return '';
+      const headers = Object.keys(entries[0]);
+      const escapeCsv = value => {
+        const str = String(value ?? '');
+        return '"' + str.replace(/"/g, '""') + '"';
+      };
+      const rows = entries.map(entry => headers.map(h => escapeCsv(entry[h])).join(','));
+      return [headers.join(','), ...rows].join('\n');
+    }
+
+    function renderTable() {
+      const entries = getEntries();
+      entryCountEl.textContent = `${entries.length} ${entries.length === 1 ? 'entry' : 'entries'}`;
+      tbody.innerHTML = '';
+      entries.forEach((entry, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${entry.entryDate || ''}</td>
+          <td>${entry.participantId || ''}</td>
+          <td>${entry.firstName || ''} ${entry.lastName || ''}</td>
+          <td>${entry.ageGroup || ''}</td>
+          <td>${entry.county || ''}</td>
+          <td>${entry.sessionType || ''}</td>
+          <td>${entry.consentStatus || ''}</td>
+          <td>${entry.referralNeeded || ''}</td>
+          <td><button type="button" class="btn-danger" data-delete="${index}">Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const entry = Object.fromEntries(formData.entries());
+      const entries = getEntries();
+      entries.push(entry);
+      saveEntries(entries);
+      form.reset();
+      entryDate.value = new Date().toISOString().split('T')[0];
+      showStatus('Entry saved locally.');
+    });
+
+    document.getElementById('exportCsvBtn').addEventListener('click', () => {
+      const entries = getEntries();
+      if (!entries.length) return showStatus('No entries to export.');
+      downloadFile('girls-act-register.csv', toCSV(entries), 'text/csv;charset=utf-8;');
+      showStatus('CSV exported.');
+    });
+
+    document.getElementById('exportJsonBtn').addEventListener('click', () => {
+      const entries = getEntries();
+      if (!entries.length) return showStatus('No entries to export.');
+      downloadFile('girls-act-register.json', JSON.stringify(entries, null, 2), 'application/json');
+      showStatus('JSON exported.');
+    });
+
+    document.getElementById('clearAllBtn').addEventListener('click', () => {
+      const ok = window.confirm('Delete all locally saved entries from this browser?');
+      if (!ok) return;
+      localStorage.removeItem(STORAGE_KEY);
+      renderTable();
+      showStatus('All local entries deleted.');
+    });
+
+    tbody.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-delete]');
+      if (!btn) return;
+      const index = Number(btn.getAttribute('data-delete'));
+      const entries = getEntries();
+      entries.splice(index, 1);
+      saveEntries(entries);
+      showStatus('Entry deleted.');
+    });
+
+    renderTable();
+
+    /*
+      NEXT STEP FOR PRODUCTION
+      ------------------------
+      Replace localStorage with a secure backend.
+
+      Safe beginner path:
+      1) GitHub Pages hosts only the interface.
+      2) Submissions go to a secure database service.
+      3) Add authentication and access rules.
+
+      Example options:
+      - Supabase
+      - Firebase
+      - KoboToolbox / ODK for field data collection
+      - REDCap for stronger research/health data governance
+    */
+  </script>
+</body>
+</html>
